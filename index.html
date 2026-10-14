@@ -1,0 +1,76 @@
+<!--OBS DU FÅR INTE ÄNDRA NÅGOT I DENNA FIL-->
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <title>Receptsökaren</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Oswald:400,300,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Play:400,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/styles.css" type="text/css">
+    <script src="js/main.js" defer></script>
+</head>
+
+<body>
+    <header id="mainheader">
+        <div class="container">
+            <h1 id="logo">DT224G</h1>
+        </div>
+    </header>
+
+    <div class="contain">
+        <h2>Receptsökaren</h2>
+        <p>Sök efter ett recept och visa information från ett externt API.</p>
+
+        <section id="new">
+            <!--För felhantering av formuläret-->
+            <p id="error"></p>
+            <form id="searchform">
+                <label for="search">Sök efter recept:</label><br>
+                <input type="text" id="search" placeholder="Exempel: pasta">
+                <button type="submit" id="searchbutton">Sök</button>
+            </form>
+        </section>
+
+        <!--För felhantering av API-anrop-->
+        <section id="message"></section>
+
+        <section id="recipe">
+            <!--
+                Exempel på struktur för receptet som ska skapas med JavaScript:
+
+                <article>
+                    <h3>Receptets namn</h3>
+
+                    <img src="..." alt="...">
+
+                    <div class="recipe-info">
+                        <p><strong>Servings:</strong> 4</p>
+                        <p><strong>Prep time:</strong> 10 minutes</p>
+                        <p><strong>Cooking time:</strong> 20 minutes</p>
+                        <p><strong>Difficulty:</strong> Easy</p>
+                    </div>
+
+                    <h4>Ingredients</h4>
+                    <ul>
+                        <li>Ingredient 1</li>
+                        <li>Ingredient 2</li>
+                    </ul>
+
+                    <h4>Instructions</h4>
+                    <ol>
+                        <li>First step.</li>
+                        <li>Second step.</li>
+                    </ol>
+                </article>
+            -->
+        </section>
+
+        <footer>
+            <p>Laborationsuppgift för kursen DT224G, Introduktion till webbutveckling med HTML, CSS och JavaScript.</p>
+        </footer>
+    </div>
+</body>
+
+</html>

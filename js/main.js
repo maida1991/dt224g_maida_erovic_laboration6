@@ -40,9 +40,8 @@ async function handleSearch(event) {
             return;
         }
 
-        // Visa det första receptet i konsolen.
-        // Receptet ska senare skrivas ut på webbsidan.
-        console.log(recipes[0]);
+        // Visa det första receptet på webbsidan.
+        displayRecipe(recipes[0]);
     } catch (error) {
         // Ta bort eventuellt recept och visa ett tydligt felmeddelande.
         recipeElement.replaceChildren();
@@ -76,4 +75,48 @@ async function fetchRecipes(searchTerm) {
     }
 
     return data.recipes;
+}
+// Skapa och visa receptets namn, bild och grundläggande information.
+function displayRecipe(recipe) {
+    // Ta bort tidigare recept.
+    recipeElement.replaceChildren();
+
+    const article = document.createElement("article");
+
+    const heading = document.createElement("h3");
+    heading.textContent = recipe.name;
+
+    const image = document.createElement("img");
+    image.src = recipe.image;
+    image.alt = recipe.name;
+
+    const info = document.createElement("div");
+    info.classList.add("recipe-info");
+
+    info.appendChild(createInfoParagraph("Servings:", recipe.servings));
+    info.appendChild(
+        createInfoParagraph("Prep time:", `${recipe.prepTimeMinutes} minutes`)
+    );
+    info.appendChild(
+        createInfoParagraph("Cooking time:", `${recipe.cookTimeMinutes} minutes`)
+    );
+    info.appendChild(createInfoParagraph("Difficulty:", recipe.difficulty));
+
+    article.appendChild(heading);
+    article.appendChild(image);
+    article.appendChild(info);
+
+    recipeElement.appendChild(article);
+}
+
+// Skapa ett informationsstycke med en fet etikett och ett värde.
+function createInfoParagraph(label, value) {
+    const paragraph = document.createElement("p");
+    const strong = document.createElement("strong");
+
+    strong.textContent = label;
+    paragraph.appendChild(strong);
+    paragraph.appendChild(document.createTextNode(` ${value}`));
+
+    return paragraph;
 }

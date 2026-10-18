@@ -14,6 +14,7 @@ const recipeElement = document.querySelector("#recipe");
 // Lyssna på när användaren skickar sökformuläret.
 searchForm.addEventListener("submit", handleSearch);
 
+// Validera sökfrasen och hantera sökningen.
 async function handleSearch(event) {
     // Förhindra att sidan laddas om.
     event.preventDefault();
@@ -70,19 +71,21 @@ async function fetchRecipes(searchTerm) {
     const data = await response.json();
 
     // Kontrollera att svaret innehåller en array med recept.
-    if (!Array.isArray(data.recipes)) {
+    if (!data || !Array.isArray(data.recipes)) {
         throw new Error("API-svaret saknar en giltig receptlista.");
     }
 
     return data.recipes;
 }
-// Skapa och visa receptets namn, bild och grundläggande information.
+
+// Skapa och visa receptets innehåll i DOM.
 function displayRecipe(recipe) {
     // Ta bort tidigare recept.
     recipeElement.replaceChildren();
 
     const article = document.createElement("article");
 
+    // Skapa receptets rubrik och bild.
     const heading = document.createElement("h3");
     heading.textContent = recipe.name;
 
@@ -90,6 +93,7 @@ function displayRecipe(recipe) {
     image.src = recipe.image;
     image.alt = recipe.name;
 
+    // Skapa grundläggande information om receptet.
     const info = document.createElement("div");
     info.classList.add("recipe-info");
 
@@ -106,6 +110,25 @@ function displayRecipe(recipe) {
     article.appendChild(image);
     article.appendChild(info);
 
+    // Skapa en punktlista med receptets ingredienser.
+    const ingredientsHeading = document.createElement("h4");
+    ingredientsHeading.textContent = "Ingredients";
+
+    const ingredientsList = createRecipeList("ul", recipe.ingredients);
+
+    article.appendChild(ingredientsHeading);
+    article.appendChild(ingredientsList);
+
+    // Skapa en numrerad lista med instruktionerna.
+    const instructionsHeading = document.createElement("h4");
+    instructionsHeading.textContent = "Instructions";
+
+    const instructionsList = createRecipeList("ol", recipe.instructions);
+
+    article.appendChild(instructionsHeading);
+    article.appendChild(instructionsList);
+
+    // Lägg till det färdiga receptet på sidan.
     recipeElement.appendChild(article);
 }
 
@@ -119,4 +142,17 @@ function createInfoParagraph(label, value) {
     paragraph.appendChild(document.createTextNode(` ${value}`));
 
     return paragraph;
+}
+
+// Skapa en lista med ingredienser eller instruktioner.
+function createRecipeList(listType, items) {
+    const list = document.createElement(listType);
+
+    items.forEach(function (item) {
+        const listItem = document.createElement("li");
+        listItem.textContent = item;
+        list.appendChild(listItem);
+    });
+
+    return list;
 }

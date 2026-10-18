@@ -106,11 +106,29 @@ function displayRecipe(recipe) {
     article.appendChild(image);
     article.appendChild(info);
 
+    // Skapa en punktlista med receptets ingredienser.
+    const ingredientsHeading = document.createElement("h4");
+    ingredientsHeading.textContent = "Ingredients";
+
+    const ingredientsList = createRecipeList("ul", recipe.ingredients);
+
+    article.appendChild(ingredientsHeading);
+    article.appendChild(ingredientsList);
+
+    // Skapa en numrerad lista med instruktionerna.
+    const instructionsHeading = document.createElement("h4");
+    instructionsHeading.textContent = "Instructions";
+
+    const instructionsList = createRecipeList("ol", recipe.instructions);
+
+    article.appendChild(instructionsHeading);
+    article.appendChild(instructionsList);
+
     recipeElement.appendChild(article);
 }
 
 // Skapa ett informationsstycke med en fet etikett och ett värde.
-function createInfoParagraph(label, value) {
+    function createInfoParagraph(label, value) {
     const paragraph = document.createElement("p");
     const strong = document.createElement("strong");
 
